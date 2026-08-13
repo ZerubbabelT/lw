@@ -1515,11 +1515,12 @@ em {
   overflow: hidden;
   background: var(--stone);
   position: relative;
+  aspect-ratio: 1;
 }
 
 .lead-partner__media img {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  height: 100%;
   object-fit: cover;
   object-position: center 20%;
 }

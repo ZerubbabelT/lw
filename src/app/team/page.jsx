@@ -39,8 +39,7 @@ function LeadPartner({ person }) {
             <Image
               src={person.photo}
               alt={person.name}
-              width={900}
-              height={1125}
+              fill
               sizes="(max-width: 900px) 20rem, 40vw"
             />
             <PersonContactLinks person={person} />
