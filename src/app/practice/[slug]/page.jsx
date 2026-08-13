@@ -1,80 +1,28 @@
-import { Link, useParams } from 'react-router-dom'
-import PageHead from '../components/PageHead'
-import Reveal from '../components/Reveal'
-import { Caption, CtaBand } from '../components/Layout'
-import { practices } from '../content'
-import NotFound from './NotFound'
+import { notFound } from 'next/navigation'
+import Link from 'next/link'
+import PageHead from '@/components/PageHead'
+import Reveal from '@/components/Reveal'
+import { Caption, CtaBand } from '@/components/Layout'
+import { practices } from '@/content'
 
-export function PracticeIndex() {
-  return (
-    <>
-      <PageHead
-        crumb="Practice"
-       
-        eyebrow="What we handle"
-        title={
-          <>
-            Eight practices, one <em className="gold">bench.</em>
-          </>
-        }
-        lede="We advise on transactions and we argue disputes. We do not do conveyancing, family matters, or criminal defence. When a call falls outside these eight areas we say so and give you two names."
-        image="/img/facade.jpg"
-      />
-
-      <section className="section">
-        <div className="shell">
-          {practices.map((p) => (
-            <Reveal className="detail-block" key={p.slug}>
-              <div>
-                <Caption>Practice</Caption>
-                <h2>{p.name}</h2>
-                <div style={{ marginTop: '1.4rem' }}>
-                  <Link to={`/practice/${p.slug}`} className="link-underline brick">
-                    Read the detail <span className="btn-arrow">→</span>
-                  </Link>
-                </div>
-              </div>
-              <div className="prose">
-                <p>{p.body}</p>
-                <ul className="tag-list">
-                  {p.scope.map((s) => (
-                    <li key={s}>{s}</li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <CtaBand
-       
-        eyebrow="Not sure where it fits"
-        heading={
-          <>
-            Describe the problem. We will tell you <em className="brick">whose it is.</em>
-          </>
-        }
-      >
-        If the matter belongs with another firm, you will hear that on the first call.
-      </CtaBand>
-    </>
-  )
+export function generateStaticParams() {
+  return practices.map((p) => ({ slug: p.slug }))
 }
 
-export function PracticeDetail() {
-  const { slug } = useParams()
+export default async function PracticeDetailPage({ params }) {
+  const { slug } = await params
   const practice = practices.find((p) => p.slug === slug)
+  if (!practice) notFound()
   const others = practices.filter((p) => p.slug !== slug).slice(0, 4)
+  return <PracticeDetail practice={practice} others={others} />
+}
 
-  if (!practice) return <NotFound />
-
+function PracticeDetail({ practice, others }) {
   return (
     <>
       <PageHead
         crumb="All practices"
         crumbTo="/practice"
-       
         eyebrow="Practice"
         title={practice.name}
         lede={practice.short}
@@ -121,7 +69,7 @@ export function PracticeDetail() {
           </Reveal>
           <Reveal className="practice-list">
             {others.map((p, i) => (
-              <Link className="practice-row" to={`/practice/${p.slug}`} key={p.slug}>
+              <Link className="practice-row" href={`/practice/${p.slug}`} key={p.slug}>
                 <span className="practice-row__mark">{i + 1}</span>
                 <span>
                   <span className="practice-row__title" style={{ display: 'block', marginTop: '0.2rem' }}>
@@ -137,7 +85,6 @@ export function PracticeDetail() {
       </section>
 
       <CtaBand
-       
         eyebrow="This practice"
         heading={
           <>

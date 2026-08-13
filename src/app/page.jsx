@@ -1,16 +1,15 @@
-import { Link } from 'react-router-dom'
-import { PersonCard } from './Team'
-import Reveal from '../components/Reveal'
-import { Caption, CtaBand } from '../components/Layout'
+import Link from 'next/link'
+import Image from 'next/image'
+import { PersonCard } from '@/components/PersonCard'
+import Reveal from '@/components/Reveal'
+import { Caption, CtaBand } from '@/components/Layout'
 import {
   attorneys,
   practices,
   results,
   whyUs,
-} from '../content'
+} from '@/content'
 
-/* Keep one compact proof strip in the first viewport. These figures establish
-   experience and capacity without making visitors pass through a second stats band. */
 const heroProof = [
   { value: '20+', label: 'Years advising investors' },
   { value: '9', label: 'Advocates admitted to federal courts' },
@@ -22,7 +21,13 @@ function Hero() {
     <section className="hero">
       <div className="hero__frame">
         <div className="hero__media">
-          <img src="/img/hero-addis.jpg" alt="The Addis Ababa skyline above the eucalyptus" />
+          <Image
+            src="/img/hero-addis.jpg"
+            alt="The Addis Ababa skyline above the eucalyptus"
+            fill
+            sizes="100vw"
+            preload
+          />
         </div>
         <div className="hero__wash" />
 
@@ -39,13 +44,12 @@ function Hero() {
               lenders and Ethiopian companies.
             </p>
             <div className="btn-row hero__actions reveal reveal-4">
-              <Link to="/contact" className="btn btn--ochre">
+              <Link href="/contact" className="btn btn--ochre">
                 Book a consultation <span className="btn-arrow">→</span>
               </Link>
             </div>
           </div>
 
-          {/* the proof rests in the foot of the card, where the curve is */}
           <div className="hero__proof reveal reveal-4">
             {heroProof.map((p) => (
               <div className="hero__proof-item" key={p.label}>
@@ -77,12 +81,16 @@ function Practices() {
           </p>
         </Reveal>
 
-        {/* Lead with the three areas visitors ask for most; the index carries the full list. */}
         <Reveal className="practices-grid">
           {practices.slice(0, 3).map((p) => (
-            <Link className="card" to={`/practice/${p.slug}`} key={p.slug}>
+            <Link className="card" href={`/practice/${p.slug}`} key={p.slug}>
               <span className="card__media">
-                <img src={p.image} alt="" loading="lazy" />
+                <Image
+                  src={p.image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 800px) 100vw, 33vw"
+                />
               </span>
               <span className="card__body">
                 <span className="card__title">{p.name}</span>
@@ -94,7 +102,7 @@ function Practices() {
         </Reveal>
 
         <div style={{ marginTop: '2.25rem' }}>
-          <Link to="/practice" className="btn btn--dark-outline">
+          <Link href="/practice" className="btn btn--dark-outline">
             View all practice areas <span className="btn-arrow">→</span>
           </Link>
         </div>
@@ -165,7 +173,7 @@ function ResultsPreview() {
         </p>
 
         <div style={{ marginTop: '2rem' }}>
-          <Link to="/results" className="link-underline brick">
+          <Link href="/results" className="link-underline brick">
             All selected results <span className="btn-arrow">→</span>
           </Link>
         </div>
@@ -196,7 +204,7 @@ function People() {
         </Reveal>
 
         <div style={{ marginTop: '2.25rem' }}>
-          <Link to="/team" className="link-underline brick">
+          <Link href="/team" className="link-underline brick">
             All nine advocates <span className="btn-arrow">→</span>
           </Link>
         </div>
@@ -214,7 +222,6 @@ export default function Home() {
       <ResultsPreview />
       <People />
       <CtaBand
-       
         eyebrow="First conversation"
         heading={
           <>

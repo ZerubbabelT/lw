@@ -1,8 +1,9 @@
+'use client'
 import { useState } from 'react'
-import PageHead from '../components/PageHead'
-import Reveal from '../components/Reveal'
-import { Caption } from '../components/Layout'
-import { firm, practices } from '../content'
+import PageHead from '@/components/PageHead'
+import Reveal from '@/components/Reveal'
+import { Caption } from '@/components/Layout'
+import { firm, practices } from '@/content'
 
 export default function Contact() {
   const [sent, setSent] = useState(false)

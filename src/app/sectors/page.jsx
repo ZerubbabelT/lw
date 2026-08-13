@@ -1,7 +1,8 @@
-import PageHead from '../components/PageHead'
-import Reveal from '../components/Reveal'
-import { Caption, CtaBand } from '../components/Layout'
-import { sectors } from '../content'
+import Image from 'next/image'
+import PageHead from '@/components/PageHead'
+import Reveal from '@/components/Reveal'
+import { Caption, CtaBand } from '@/components/Layout'
+import { sectors } from '@/content'
 
 export default function Sectors() {
   return (
@@ -31,10 +32,11 @@ export default function Sectors() {
               }}
             >
               <div>
-                <img
+                <Image
                   src={s.image}
                   alt=""
-                  loading="lazy"
+                  width={1200}
+                  height={900}
                   style={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover' }}
                 />
               </div>

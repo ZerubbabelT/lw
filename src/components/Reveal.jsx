@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+'use client'
+
+import { useEffect, useRef } from 'react'
 
 /** Fades a block in once, the first time it enters the viewport. */
 export default function Reveal({ children, as: Tag = 'div', className = '', ...rest }) {
   const ref = useRef(null)
-  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     const node = ref.current
@@ -11,14 +12,14 @@ export default function Reveal({ children, as: Tag = 'div', className = '', ...r
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduced || !('IntersectionObserver' in window)) {
-      setVisible(true)
+      node.classList.add('is-visible')
       return
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true)
+          node.classList.add('is-visible')
           observer.disconnect()
         }
       },
@@ -33,7 +34,7 @@ export default function Reveal({ children, as: Tag = 'div', className = '', ...r
   return (
     <Tag
       ref={ref}
-      className={`on-scroll ${visible ? 'is-visible' : ''} ${className}`.trim()}
+      className={`on-scroll ${className}`.trim()}
       {...rest}
     >
       {children}

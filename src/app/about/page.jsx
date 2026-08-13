@@ -1,7 +1,7 @@
-import PageHead from '../components/PageHead'
-import Reveal from '../components/Reveal'
-import { Caption, CtaBand } from '../components/Layout'
-import { commitments, stats, testimonials } from '../content'
+import PageHead from '@/components/PageHead'
+import Reveal from '@/components/Reveal'
+import { Caption, CtaBand } from '@/components/Layout'
+import { commitments, stats, testimonials } from '@/content'
 
 export default function About() {
   return (

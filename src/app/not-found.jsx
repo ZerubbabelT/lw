@@ -1,12 +1,11 @@
-import { Link } from 'react-router-dom'
-import PageHead from '../components/PageHead'
+import Link from 'next/link'
+import PageHead from '@/components/PageHead'
 
 export default function NotFound() {
   return (
     <>
       <PageHead
         crumb="Not found"
-       
         eyebrow="Page not found"
         title={
           <>
@@ -18,13 +17,13 @@ export default function NotFound() {
       />
       <section className="section">
         <div className="shell btn-row">
-          <Link to="/practice" className="btn btn--green">
+          <Link href="/practice" className="btn btn--green">
             Practice areas <span className="btn-arrow">→</span>
           </Link>
-          <Link to="/team" className="btn btn--dark-outline">
+          <Link href="/team" className="btn btn--dark-outline">
             People
           </Link>
-          <Link to="/contact" className="btn btn--dark-outline">
+          <Link href="/contact" className="btn btn--dark-outline">
             Contact
           </Link>
         </div>

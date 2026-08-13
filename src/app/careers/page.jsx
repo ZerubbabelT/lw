@@ -1,7 +1,7 @@
-import PageHead from '../components/PageHead'
-import Reveal from '../components/Reveal'
-import { Caption, CtaBand } from '../components/Layout'
-import { careers, firm } from '../content'
+import PageHead from '@/components/PageHead'
+import Reveal from '@/components/Reveal'
+import { Caption, CtaBand } from '@/components/Layout'
+import { careers, firm } from '@/content'
 
 export default function Careers() {
   return (

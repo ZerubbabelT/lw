@@ -1,5 +1,7 @@
+'use client'
+
 import { useEffect, useRef, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { usePathname } from 'next/navigation'
 
 /**
  * Route feedback that costs nothing in time-to-content.
@@ -10,7 +12,7 @@ import { useLocation } from 'react-router-dom'
  * it would be without either.
  */
 export function RouteProgress() {
-  const { pathname } = useLocation()
+  const pathname = usePathname()
   const [state, setState] = useState('idle') // idle | running | done
   const first = useRef(true)
 
@@ -31,9 +33,9 @@ export function RouteProgress() {
   return <div className={`route-progress is-${state}`} aria-hidden="true" />
 }
 
-/** Fades the page body in on route change. 200ms - felt, not waited on. */
+/** Fades the page body in on route change. 200ms — felt, not waited on. */
 export function RouteFade({ children }) {
-  const { pathname } = useLocation()
+  const pathname = usePathname()
   return (
     <div className="route-fade" key={pathname}>
       {children}

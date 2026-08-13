@@ -1,7 +1,7 @@
-import PageHead from '../components/PageHead'
-import Reveal from '../components/Reveal'
-import { Caption } from '../components/Layout'
-import { firm } from '../content'
+import PageHead from '@/components/PageHead'
+import Reveal from '@/components/Reveal'
+import { Caption } from '@/components/Layout'
+import { firm } from '@/content'
 
 export default function Legal() {
   return (

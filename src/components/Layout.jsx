@@ -1,13 +1,19 @@
+'use client'
+
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { RouteFade, RouteProgress } from './RouteProgress'
 import { firm } from '../content'
 
 /* Four items and one control. Everything a visitor might want but does
-   not navigate by - sectors, the record, careers, the legal notice -
+   not navigate by — sectors, the record, careers, the legal notice —
    sits either inside the What we do menu or in the footer. */
 const NAV = [
-  { to: '/about', label: 'About us' },
+  {
+    label: 'About us',
+    to: '/about',
+  },
   {
     label: 'What we do',
     match: ['/practice', '/sectors', '/results'],
@@ -30,6 +36,7 @@ const NAV = [
     ],
   },
   { to: '/team', label: 'Teams' },
+  { to: '/insights', label: 'Insights' },
 ]
 
 /** The eyebrow that heads every section. */
@@ -84,7 +91,7 @@ function NavMenu({ group, pathname }) {
 
       <div className="nav-menu__panel">
         {group.items.map((item) => (
-          <Link className="nav-menu__item" to={item.to} key={item.to} onClick={() => setOpen(false)}>
+          <Link className="nav-menu__item" href={item.to} key={item.to} onClick={() => setOpen(false)}>
             <span className="nav-menu__label">{item.label}</span>
             <span className="nav-menu__note">{item.note}</span>
           </Link>
@@ -96,15 +103,13 @@ function NavMenu({ group, pathname }) {
 
 function Masthead() {
   const [open, setOpen] = useState(false)
-  const { pathname } = useLocation()
-
-  useEffect(() => setOpen(false), [pathname])
+  const pathname = usePathname()
 
   return (
     <header className="masthead">
       <div className="shell">
         <div className="masthead__bar">
-          <Link to="/" className="wordmark">
+          <Link href="/" className="wordmark">
             <span className="seal" aria-hidden="true">K</span>
             <span className="wordmark__text">
               <span className="wordmark__name">Kebede</span>
@@ -117,27 +122,25 @@ function Masthead() {
               item.items ? (
                 <NavMenu key={item.label} group={item} pathname={pathname} />
               ) : (
-                <NavLink
+                <Link
                   key={item.to}
-                  to={item.to}
-                  className={({ isActive }) => (isActive ? 'nav__link is-active' : 'nav__link')}
+                  href={item.to}
+                  className={pathname === item.to ? 'nav__link is-active' : 'nav__link'}
                 >
                   {item.label}
-                </NavLink>
+                </Link>
               ),
             )}
           </nav>
 
           <div className="masthead__end">
-            <NavLink
-              to="/contact"
-              className={({ isActive }) =>
-                isActive ? 'masthead__contact is-active' : 'masthead__contact'
-              }
+            <Link
+              href="/contact"
+              className={pathname === '/contact' ? 'masthead__contact is-active' : 'masthead__contact'}
             >
               Contact us
-            </NavLink>
-            <Link to="/contact" className="btn btn--ochre masthead__cta">
+            </Link>
+            <Link href="/contact" className="btn btn--ochre masthead__cta">
               Book a consultation
             </Link>
 
@@ -159,18 +162,18 @@ function Masthead() {
               <div className="mobile-nav__group" key={item.label}>
                 <span className="mobile-nav__label">{item.label}</span>
                 {item.items.map((sub) => (
-                  <Link key={sub.to} to={sub.to}>
+                  <Link key={sub.to} href={sub.to} onClick={() => setOpen(false)}>
                     {sub.label}
                   </Link>
                 ))}
               </div>
             ) : (
-              <Link key={item.to} to={item.to}>
+              <Link key={item.to} href={item.to} onClick={() => setOpen(false)}>
                 {item.label}
               </Link>
             ),
           )}
-          <Link to="/contact" className="btn btn--ochre">
+          <Link href="/contact" className="btn btn--ochre" onClick={() => setOpen(false)}>
             Book a consultation
           </Link>
         </nav>
@@ -198,24 +201,24 @@ function Footer() {
           <div className="footer__col">
             <h4>Practice</h4>
             <ul>
-              <li><Link to="/practice/foreign-investment">Foreign investment</Link></li>
-              <li><Link to="/practice/mergers-acquisitions">Mergers &amp; acquisitions</Link></li>
-              <li><Link to="/practice/mining-energy">Mining &amp; energy</Link></li>
-              <li><Link to="/practice/banking-finance">Banking &amp; finance</Link></li>
-              <li><Link to="/practice">All eight practices</Link></li>
+              <li><Link href="/practice/foreign-investment">Foreign investment</Link></li>
+              <li><Link href="/practice/mergers-acquisitions">Mergers &amp; acquisitions</Link></li>
+              <li><Link href="/practice/mining-energy">Mining &amp; energy</Link></li>
+              <li><Link href="/practice/banking-finance">Banking &amp; finance</Link></li>
+              <li><Link href="/practice">All eight practices</Link></li>
             </ul>
           </div>
 
           <div className="footer__col">
             <h4>Firm</h4>
             <ul>
-              <li><Link to="/about">The firm</Link></li>
-              <li><Link to="/team">Advocates</Link></li>
-              <li><Link to="/results">Results</Link></li>
-              <li><Link to="/sectors">Sectors</Link></li>
-              <li><Link to="/insights">Insights</Link></li>
-              <li><Link to="/careers">Careers</Link></li>
-              <li><Link to="/legal">Privacy &amp; terms</Link></li>
+              <li><Link href="/about">The firm</Link></li>
+              <li><Link href="/team">Advocates</Link></li>
+              <li><Link href="/results">Results</Link></li>
+              <li><Link href="/sectors">Sectors</Link></li>
+              <li><Link href="/insights">Insights</Link></li>
+              <li><Link href="/careers">Careers</Link></li>
+              <li><Link href="/legal">Privacy &amp; terms</Link></li>
             </ul>
           </div>
 
@@ -236,7 +239,7 @@ function Footer() {
           <p>
             This site is published for general information and is not legal advice.
             Sending a message does not create an advocate–client relationship, and
-            past outcomes do not guarantee a similar result. <Link to="/legal">Legal notice
+            past outcomes do not guarantee a similar result. <Link href="/legal">Legal notice
             and privacy</Link>.
           </p>
           <p>© {new Date().getFullYear()} Kebede Advocates</p>
@@ -260,7 +263,7 @@ export function CtaBand({ eyebrow = 'Next step', heading, children, action = 'Bo
           ) : null}
         </div>
         <div className="btn-row">
-          <Link to="/contact" className="btn btn--green">
+          <Link href="/contact" className="btn btn--green">
             {action} <span className="btn-arrow">→</span>
           </Link>
         </div>
@@ -270,7 +273,7 @@ export function CtaBand({ eyebrow = 'Next step', heading, children, action = 'Bo
 }
 
 export default function Layout({ children }) {
-  const { pathname } = useLocation()
+  const pathname = usePathname()
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -279,7 +282,7 @@ export default function Layout({ children }) {
   return (
     <>
       <RouteProgress />
-      <Masthead />
+      <Masthead key={pathname} />
       <main>
         <RouteFade>{children}</RouteFade>
       </main>

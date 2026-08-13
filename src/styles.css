@@ -39,8 +39,8 @@
   --on-dark-soft: rgba(253, 252, 250, 0.68);
   --on-dark-line: rgba(253, 252, 250, 0.18);
 
-  --display: "Lato", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
-  --body: "Open Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --display: var(--font-lato), -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --body: var(--font-open-sans), -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
 
   --gutter: clamp(1.15rem, 4.5vw, 5rem);
   --measure: 1400px;
@@ -1429,6 +1429,7 @@ em {
   aspect-ratio: 16 / 10;
   overflow: hidden;
   background: var(--stone);
+  position: relative;
 }
 
 .card__media img {
